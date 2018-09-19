@@ -1,10 +1,10 @@
 """
 Logic for dashboard related routes
 """
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash
 from .forms import LogUserForm, secti,masoform, rychlostForm
 from ..data.database import db
-from ..data.models import LogUser
+from ..data.models import LogUser,rychlost
 blueprint = Blueprint('public', __name__)
 
 @blueprint.route('/', methods=['GET'])
@@ -14,6 +14,10 @@ def index():
 @blueprint.route('/rychlost', methods=['GET','POST'])
 def rychlost():
     form = rychlostForm()
+    if form.is_submitted():
+        #rychlost.create(**form.data)
+        #flash('ulozeno', category=Warning)
+        print(form.rychlost.data)
     return render_template('public/rychlost.tmpl',form=form)
 
 @blueprint.route('/loguserinput',methods=['GET', 'POST'])
